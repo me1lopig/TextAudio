@@ -38,8 +38,11 @@ with st.sidebar:
     st.header("⚙️ Ajustes de locución")
     nombre_backend = st.selectbox("Motor de voz", list(BACKENDS), on_change=_invalidar_audio)
     backend = BACKENDS[nombre_backend]
-    etiqueta_voz = st.selectbox("Voz / acento", list(backend.voces), on_change=_invalidar_audio)
+    etiqueta_voz = st.selectbox(backend.etiqueta_selector, list(backend.voces),
+                                on_change=_invalidar_audio)
     voz = backend.voces[etiqueta_voz]
+    if backend.nota_voces:
+        st.caption(backend.nota_voces)
     velocidad = st.slider(
         "Velocidad", 0.7, 1.3, 1.0, 0.05,
         disabled=not backend.admite_velocidad,
@@ -60,11 +63,16 @@ def ejecutar(sintesis):
     except ErrorSintesis as e:
         if not (usar_respaldo and isinstance(backend, BackendEdge)):
             raise
-        st.warning(f"{e}\n\nSe ha usado gTTS como respaldo.")
+        st.warning(f"{e}\n\nSe ha usado gTTS como respaldo (voz femenina única, "
+                   "sin ajuste de velocidad).")
         return sintesis(BACKENDS[BackendGTTS.nombre], voz_gtts_equivalente(voz), 1.0)
 
 st.title("🎙️ Estudio de Podcast IA")
-st.markdown("Carga tu guion, límpialo y genera el audio del episodio.")
+st.markdown("Carga tu guión, límpialo y genera el audio del episodio.")
+st.markdown("Según directiva ITQ404")
+st.markdown("**Nota:** Microsoft Edge TTS puede rechazar la conexión (403) si detecta "
+            "muchas peticiones o un cambio en su servicio. En ese caso, prueba otro motor "
+            "o activa el respaldo gTTS (voz femenina única, sin ajuste de velocidad).")
 
 tab1, tab2 = st.tabs(["📝 1. Editor de guion", "🎧 2. Generación y audio"])
 

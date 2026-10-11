@@ -105,6 +105,8 @@ def primeras_palabras(texto: str, n: int = 20) -> str:
 class BackendTTS(Protocol):
     nombre: str
     voces: dict[str, str]
+    etiqueta_selector: str   # rótulo del desplegable de voces en la interfaz
+    nota_voces: str          # aclaración breve bajo el desplegable ("" = ninguna)
     admite_velocidad: bool
 
     def sintetizar(self, texto: str, voz: str, velocidad: float = 1.0) -> bytes: ...
@@ -120,6 +122,8 @@ class BackendGTTS:
         "🇲🇽 México": "com.mx",
         "🇺🇸 EE. UU. (latino)": "us",
     }
+    etiqueta_selector = "Acento"
+    nota_voces = "gTTS tiene una única voz femenina: solo cambia el acento."
     admite_velocidad = False
 
     def sintetizar(self, texto: str, voz: str, velocidad: float = 1.0) -> bytes:
@@ -144,11 +148,13 @@ class BackendEdge:
 
     nombre = "Edge TTS (voces neuronales)"
     voces = {
-        "🇪🇸 Álvaro (ES)": "es-ES-AlvaroNeural",
-        "🇪🇸 Elvira (ES)": "es-ES-ElviraNeural",
-        "🇲🇽 Jorge (MX)": "es-MX-JorgeNeural",
-        "🇲🇽 Dalia (MX)": "es-MX-DaliaNeural",
+        "🇪🇸 Álvaro · locutor (España)": "es-ES-AlvaroNeural",
+        "🇪🇸 Elvira · locutora (España)": "es-ES-ElviraNeural",
+        "🇲🇽 Jorge · locutor (México)": "es-MX-JorgeNeural",
+        "🇲🇽 Dalia · locutora (México)": "es-MX-DaliaNeural",
     }
+    etiqueta_selector = "Locutor / locutora"
+    nota_voces = ""
     admite_velocidad = True
 
     def sintetizar(self, texto: str, voz: str, velocidad: float = 1.0) -> bytes:
