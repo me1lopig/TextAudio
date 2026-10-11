@@ -1,0 +1,24 @@
+[project]
+name = "estudio-podcast-ia"
+version = "0.2.0"
+description = "Generador de audio de podcast a partir de guiones (Streamlit + TTS)"
+requires-python = ">=3.11"
+dependencies = [
+    "streamlit>=1.40",
+    "gTTS>=2.5",
+    "edge-tts>=7.0",   # versiones < 7 dan 403 (falta el token Sec-MS-GEC)
+]
+
+[project.optional-dependencies]
+# Voz local y offline (sin depender de servidores de Google/Microsoft)
+local = ["piper-tts"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
