@@ -73,6 +73,7 @@ st.markdown("Según directiva ITQ404")
 st.markdown("**Nota:** Microsoft Edge TTS puede rechazar la conexión (403) si detecta "
             "muchas peticiones o un cambio en su servicio. En ese caso, prueba otro motor "
             "o activa el respaldo gTTS (voz femenina única, sin ajuste de velocidad).")
+st-markdown("No esperes gran cosa en el resultado")
 
 tab1, tab2 = st.tabs(["📝 1. Editor de guion", "🎧 2. Generación y audio"])
 
