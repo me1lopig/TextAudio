@@ -67,7 +67,7 @@ def ejecutar(sintesis):
                    "sin ajuste de velocidad).")
         return sintesis(BACKENDS[BackendGTTS.nombre], voz_gtts_equivalente(voz), 1.0)
 
-st.title("🎙️ Estudio de Podcast IA")
+st.title("🎙️ Generador de Audios ")
 st.markdown("Carga tu guión, límpialo y genera el audio del episodio.")
 st.markdown("Según directiva ITQ404")
 st.markdown("**Nota:** Microsoft Edge TTS puede rechazar la conexión (403) si detecta "
