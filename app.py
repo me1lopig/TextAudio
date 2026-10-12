@@ -12,7 +12,7 @@ from motor_tts import (
     voz_gtts_equivalente,
 )
 
-st.set_page_config(page_title="Generador de Podcast IA", page_icon="🎙️", layout="centered")
+st.set_page_config(page_title="Generador de audios", page_icon="🎙️", layout="centered")
 
 # --- Estado ---------------------------------------------------------------
 for clave, defecto in {
